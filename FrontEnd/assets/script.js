@@ -1,12 +1,14 @@
 // ------------------------------------------------------
 // Récupérer dynamiquement les projets de l'architecture.
 // ------------------------------------------------------
-fetch("http://localhost:5678/api/works")
-    .then((response) => response.json())
-    .then((works) => displayWorks(works))
-    .catch((error) => {
-        console.log("error", error);
-    })
+
+const works = fetch("http://localhost:5678/api/works");
+works
+ .then((response) => response.json())
+ .then((works) => displayWorks(works))
+ .catch((error) => {
+     console.log("error", error);
+})
 
 function displayWorks(works) {
     for(let index = 0; index < works.length; index++) {
@@ -16,7 +18,7 @@ function displayWorks(works) {
         const sectionGallery = document.querySelector(".gallery");
         // Création d'une balise dédiée à une image de la gallerie
         const worksElement = document.createElement("figure");
-        // Créaton des balises interne 
+        // Création des balises interne 
         const imageElement = document.createElement("img");
         imageElement.src = figure.imageUrl;
         const titleElement = document.createElement("figcaption");
@@ -24,12 +26,32 @@ function displayWorks(works) {
 
         // On ratache la balise figure à la section gallery
         sectionGallery.appendChild(worksElement);
+        // On rattache les balises interne à la section figure
         worksElement.appendChild(imageElement);
         worksElement.appendChild(titleElement);
-
-        
-
-
     }
 }
-displayWorks();
+displayWorks(works);
+
+// function displayCategory(categories) {
+//        for(let index = 0; index < categories.length; index++) {
+        
+//         const  sectionCategory = categories[index];
+//         // Création de l'élément du Dom qui accueillera les filtres
+//         const sectionFiltres = document.querySelector(".filtres");
+//         // Création d'une balise dédiée à un bouton filtre de la gallerie
+//         const categoryElement = document.createElement("section");
+//         // Création des balises interne 
+//         const buttonElement = document.createElement("button");
+
+//          // On ratache la balise figure à la section gallery
+//          sectionFiltres.appendChild(categoryElement);
+//          // On rattache les balises interne à la section figure
+//          categoryElement.appendChild(imagbuttonElementeElement);
+         
+//         }
+//         console.log(displayCategory);
+       
+// }
+
+// displayCategory(categories);
