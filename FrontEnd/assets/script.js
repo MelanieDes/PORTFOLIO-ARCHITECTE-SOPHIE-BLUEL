@@ -7,7 +7,7 @@ works
  .then((response) => response.json())
  .then((works) => displayWorks(works))
  .catch((error) => {
-     console.log("error", error);
+     console.log(`Erreur :`+ error);
 })
 
 function displayWorks(works) {
@@ -33,6 +33,13 @@ function displayWorks(works) {
 }
 displayWorks(works);
 
+const categories = fetch("http://localhost:5678/api/categories");
+categories
+ .then((response) => response.json())
+ .then((categories) => console.log(categories))
+ .catch((error) => {
+     console.log(`Erreur :`+ error);
+})
 // function displayCategory(categories) {
 //        for(let index = 0; index < categories.length; index++) {
         
