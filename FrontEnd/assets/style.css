@@ -125,6 +125,35 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+.filtres {
+	width: 100%;
+	display: flex;
+	margin: auto;
+	width: 585px;
+}
+.firstBtnFilter {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #1D6154;
+	margin : 2em auto ;
+	width: 180px;
+	text-align: center;
+	border-radius: 60px ;
+ }
+.btnFilter {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 18px;
+	height: 37px;
+	color: #1D6154;
+	background-color: white;
+	border: solid 1px #1D6154;
+	margin : 2em auto ;
+	padding: 5px 20px;
+	text-align: center;
+	border-radius: 60px ;
+}
 .gallery {
 	width: 100%;
 	display: grid;
@@ -169,7 +198,7 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"]{
+input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
