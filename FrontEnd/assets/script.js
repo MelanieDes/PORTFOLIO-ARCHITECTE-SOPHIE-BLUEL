@@ -64,7 +64,6 @@ function displayCategory(categories) {
 }
 
 function selectCategory(event) {
-  let categoryIndex = categories[index];
   event.target.dataset.blob = categories.categoryId;
   console.log(event.target.dataset.blob);
 }

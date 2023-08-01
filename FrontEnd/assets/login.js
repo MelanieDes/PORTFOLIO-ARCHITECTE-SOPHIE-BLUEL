@@ -23,6 +23,8 @@ const errorDisplay = (tag, message, valid) => {
 // Fonction pour saisie de l'email avec récuparation de la valeur de l'input
 const emailChecker = (value) => {
     // Regex pour email
+    email = value
+    return
     if(!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
         errorDisplay("email", "Le mail n'est pas valide");
         email = null;
@@ -34,15 +36,18 @@ const emailChecker = (value) => {
 
 // Fonction pour la saisie du mot de passe
 const passwordChecker = (value) => {
+    password = value
+    return
     if (!value.match(
         // Regex pour password
-          /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
+        //   /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
+          /^(?=(.*[a-z]){1,})(?=(.*[\d]){1,}).{6,}$/
         )) {
             errorDisplay(
-            "password", "Minimum de 8 caractères, une majuscule, un chiffre et un caractère spécial"
+            "password", "Minimum de 6 caractères, une majuscule, un chiffre et un caractère spécial"
             );            
             password = null;
-        } else if (value.length < 12) {            
+        } else if (value.length < 6) {            
             errorDisplay("password", "", true);
             password = value;
         } else {            
@@ -58,7 +63,7 @@ inputs.forEach((input) => {
         switch (event.target.id){
             // Si l'id est email alors tu m'appelles la fonction emailChecker
             case "email":
-                // récuparation de la valeur dans le paramètre
+                // récupération de la valeur dans le paramètre
                 emailChecker(event.target.value)
             break;
             case "password":
@@ -81,8 +86,19 @@ form.addEventListener("submit", (event) => {
             password,
         };
         console.log(data);
-        // J'efface les données saisies
-        inputs.forEach((input) => (input.value = ""));
+        fetch("http://localhost:5678/api/users/login", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'  
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => response.json())
+        .then((userData) => console.log(userData))
+        .catch((error) => {
+          console.log(`Erreur :` + error);
+        });       
        
     } else {
         alert("veuillez remplir corectement les champs");
