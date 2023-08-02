@@ -94,8 +94,23 @@ form.addEventListener("submit", (event) => {
             },
             body: JSON.stringify(data)
         })
-        .then((response) => response.json())
-        .then((userData) => console.log(userData))
+        .then((response) => {
+            if(!response.ok){
+                throw new Error("Erreur d'identifiant ou de mot de passe")
+            } else {
+                return response.json()
+            }
+        })
+        .then((userData) => {
+            if(userData.token){
+                localStorage.setItem("token", data.token);
+                console.log(userData.token);
+                // Redirection vers la page d'accueil
+                window.location.href = "./index.html";
+            } else {
+                throw new Error("Erreur lors de la connexion");
+            }
+        })
         .catch((error) => {
           console.log(`Erreur :` + error);
         });       
@@ -105,4 +120,4 @@ form.addEventListener("submit", (event) => {
     };    
 });
 
-// Revenir à la page d'accueil
+

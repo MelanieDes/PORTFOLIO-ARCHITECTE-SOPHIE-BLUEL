@@ -1,8 +1,8 @@
 // ------------------------------------------------------
 // Récupérer dynamiquement les projets de l'architecture.
 // ------------------------------------------------------
-const worksFetch = fetch("http://localhost:5678/api/works");
-worksFetch
+// Récupération des travaux de l'API (fetch GET)
+fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((works) => displayWorks(works))
   .catch((error) => {
@@ -11,17 +11,17 @@ worksFetch
 
 function displayWorks(works) {
   for (let index = 0; index < works.length; index++) {
-    // const worksIndex = works[index];
+    const worksIndex = works[index];
     // Récupération de l'élément du Dom qui accueillera la galerie
     const sectionGallery = document.querySelector(".gallery");
     // Création d'une balise dédiée à une image de la gallerie
     const worksElement = document.createElement("figure");
     // Création des balises interne
     const imageElement = document.createElement("img");
-    imageElement.src = works[index].imageUrl;
-    imageElement.alt = works[index].title;
+    imageElement.src = worksIndex.imageUrl;
+    imageElement.alt = worksIndex.title;
     const titleElement = document.createElement("h3");
-    titleElement.innerHTML = works[index].title;
+    titleElement.innerHTML = worksIndex.title;
     // Lien entre la balise figure et la section gallery
     sectionGallery.appendChild(worksElement);
     // lien entre les balises interne à la section figure
@@ -34,8 +34,9 @@ function displayWorks(works) {
 // ------------------------------------------------------
 // Récupérer dynamiquement les categories de l'architecture.
 // ------------------------------------------------------
-const categoriesFetch = fetch("http://localhost:5678/api/categories");
-categoriesFetch
+
+// Récupération des catégories de l'API (fetch GET)
+fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categories) => displayCategory(categories))
   .catch((error) => {
@@ -43,24 +44,31 @@ categoriesFetch
   });
 
 function displayCategory(categories) {
-  for (let index = 0; index < categories.length; index++) {
-    // const categoryIndex = categories[index];
-    
-    // Création de l'élément du Dom qui accueillera les filtres
+  // Création de l'élément du Dom qui accueillera les filtres
     const sectionFiltres = document.querySelector(".filtres");
-    
-    // Création d'une balise dédiée à un bouton filtre de la gallerie
-    const categoryElement = document.createElement("button");
-    categoryElement.classList.add("btnFilter");
-    categoryElement.innerHTML = categories[index].name;
-    
-    // Lien entre la balise input et la section filtre
-    sectionFiltres.appendChild(categoryElement);
+  
+    const boutonTous = document.createElement("button");
+    boutonTous.classList.add("btnTous");
+    boutonTous.textContent = "Tous";
+    sectionFiltres.appendChild(boutonTous);
 
-    categoryElement.addEventListener("click", selectCategory);
-    categoryElement.dataset.blob = index + "-btn";
-    
-  }
+    for (let index = 0; index < categories.length; index++) {
+        const categoryIndex = categories[index];
+        
+        // Création d'une balise dédiée à un bouton filtre de la gallerie
+        const categoryElement = document.createElement("button");
+        categoryElement.classList.add("btnFilter");
+        categoryElement.innerHTML = categoryIndex.name;
+        
+        // Lien entre la balise input et la section filtre
+        sectionFiltres.appendChild(categoryElement);
+
+        categoryElement.addEventListener("click", (event) => {
+            event.preventDefault();
+            selectCategory(categoryIndex.id);
+        });
+        categoryElement.dataset.blob = index + "-btn";
+    }
 }
 
 function selectCategory(event) {
