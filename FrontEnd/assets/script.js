@@ -47,10 +47,10 @@ function displayCategory(categories) {
   // Création de l'élément du Dom qui accueillera les filtres
     const sectionFiltres = document.querySelector(".filtres");
   
-    const boutonTous = document.createElement("button");
-    boutonTous.classList.add("btnTous");
-    boutonTous.textContent = "Tous";
-    sectionFiltres.appendChild(boutonTous);
+    const buttonAll = document.createElement("button");
+    buttonAll.classList.add("btnTous");
+    buttonAll.textContent = "Tous";
+    sectionFiltres.appendChild(buttonAll);
 
     for (let index = 0; index < categories.length; index++) {
         const categoryIndex = categories[index];
@@ -59,20 +59,24 @@ function displayCategory(categories) {
         const categoryElement = document.createElement("button");
         categoryElement.classList.add("btnFilter");
         categoryElement.innerHTML = categoryIndex.name;
+        categoryElement.id = categoryIndex.id;
         
         // Lien entre la balise input et la section filtre
         sectionFiltres.appendChild(categoryElement);
 
+        categoryElement.dataset.blob = index + "-btn";
         categoryElement.addEventListener("click", (event) => {
             event.preventDefault();
             selectCategory(categoryIndex.id);
         });
-        categoryElement.dataset.blob = index + "-btn";
+        
     }
 }
 
 function selectCategory(event) {
-  event.target.dataset.blob = categories.categoryId;
+  const btnCategory = event.target.dataset.blob;
+  const indexWorksProjets = 
+  // categories.categoryId;
   console.log(event.target.dataset.blob);
 }
 
