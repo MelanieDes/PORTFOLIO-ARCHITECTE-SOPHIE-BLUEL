@@ -69,7 +69,7 @@ inputs.forEach((input) => {
             case "password":
                 passwordChecker(event.target.value)
             break;
-            // toujours mettre un cas par défault dans un switch
+            // toujours mettre un cas par défaut dans un switch
             default:
                 null;
         }
@@ -116,7 +116,7 @@ form.addEventListener("submit", (event) => {
         });       
        
     } else {
-        alert("veuillez remplir corectement les champs");
+        alert("veuillez remplir correctement les champs");
     };    
 });
 

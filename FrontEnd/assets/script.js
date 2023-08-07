@@ -46,12 +46,21 @@ fetch("http://localhost:5678/api/categories")
 function displayCategory(categories) {
   // Création de l'élément du Dom qui accueillera les filtres
     const sectionFiltres = document.querySelector(".filtres");
-  
+    
+
     const buttonAll = document.createElement("button");
-    buttonAll.classList.add("btnTous");
     buttonAll.textContent = "Tous";
+    buttonAll.classList.add("btnFilter");
     sectionFiltres.appendChild(buttonAll);
 
+    let firstButtonsSelected = document.querySelector(".btnFilter");
+    firstButtonsSelected.classList.add("active");
+    
+    buttonAll.addEventListener("click", (event) => {
+      event.preventDefault();
+      setActiveButton(buttonAll);
+  });
+    
     for (let index = 0; index < categories.length; index++) {
         const categoryIndex = categories[index];
         
@@ -59,34 +68,56 @@ function displayCategory(categories) {
         const categoryElement = document.createElement("button");
         categoryElement.classList.add("btnFilter");
         categoryElement.innerHTML = categoryIndex.name;
-        categoryElement.id = categoryIndex.id;
-        
+        // categoryElement.id = categoryIndex.id;
+        // categoryElement.dataset.blob = index + "-btn";
+
         // Lien entre la balise input et la section filtre
         sectionFiltres.appendChild(categoryElement);
-
-        categoryElement.dataset.blob = index + "-btn";
+        
+        // Affichage des travaux selon bouton cliqué
         categoryElement.addEventListener("click", (event) => {
             event.preventDefault();
             selectCategory(categoryIndex.id);
+            setActiveButton(categoryElement);
         });
         
     }
 }
 
-function selectCategory(event) {
-  const btnCategory = event.target.dataset.blob;
-  const indexWorksProjets = 
-  // categories.categoryId;
-  console.log(event.target.dataset.blob);
+function setActiveButton(button) {
+  const buttons = document.querySelectorAll(".btnFilter");
+  buttons.forEach(btn => {
+    if(btn === button) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');      
+    }
+  })
 }
 
-// si je clique sur une id categorie alors tu selectionne les travaux avec id categoryIndex
-// const categorySelected = document.querySelector(".btnFilter");
+// Fonction qui permet le tri des catégories
+function selectCategory(categoryId) {
+  fetch("http://localhost:5678/api/works")
+  .then((response) => response.json())
+  .then((works) => {
+    // if(filtre == "tous") {
+    //   displayWorks(works);
+    // } else {
+      const selectWorks = works.filter((works) => works.categoryId === categoryId);
+      const sectionGallery = document.querySelector(".gallery");
+      sectionGallery.innerHTML = "";
+      displayWorks(selectWorks);
+    // }
+  })    
+  .catch((error) => {
+    console.log(`Erreur :` + error);
+  });
+  // console.log(event.target.dataset.blob); --> Début de recerhce avec Robin
+}
 
-// categorySelected.addEventListener('click', function() {
-//     const categoryFilter = categories.filter(function(categories) {
-//         return categories.id;
-//     });
-// })
+
+
+
+
 
 
