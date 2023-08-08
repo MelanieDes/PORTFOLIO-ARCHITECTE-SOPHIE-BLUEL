@@ -25,9 +25,9 @@
 	</nav>
 </header>
 <main>
-	<div class="modals">
-		<aside id="modal1" class="modal">
-			<div class="container-modal" id="container-modal1">
+	<!-- <div class="modals"> -->
+		<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal1" style="display: none;">
+			<div class="container-modal js-modal-stop" id="container-modal1">
 				<div class="modal-close">
 					<button type="submit" class="btn-close" id="close-modal1">
 						<i class="fa-solid fa-xmark"></i>
@@ -44,12 +44,11 @@
 				</div>
 			</div>
 		</aside>
-	</div>
+	<!-- </div> -->
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
-			<!-- Ouverture de la première modale -->
-			<a id="modifier-introduction" style="display: inherit;"><i class="fa-regular fa-pen-to-square"></i>Modifier</a>
+			<a id="modifier-introduction" class="btn-recast" style="display: inherit;"><i class="fa-regular fa-pen-to-square"></i>Modifier</a>
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -61,7 +60,8 @@
 	<section id="portfolio">
 		<div class="container-modifier-projets">
 			<h2>Mes Projets</h2>
-			<a id="modifier-projets" href="#modal1" style="display: inherit;"><i class="fa-regular fa-pen-to-square"></i>Modifier</a>
+			<!-- Ouverture de la première modale -->
+			<a id="modifier-projets" class="btn-recast" href="#modal1" style="display: inherit;"><i class="fa-regular fa-pen-to-square"></i>Modifier</a>
 		</div>
 		
 		<div class="filtres">
