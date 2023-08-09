@@ -163,6 +163,7 @@ document.querySelectorAll(".btn-recast").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
+// Affichage des travaux miniatures dans la modale
 function displayThumbnail() {
   const thumbnailContainer = document.getElementById('display-thumbnail');
   thumbnailContainer.innerHTML = "";
@@ -185,6 +186,13 @@ function displayThumbnail() {
         imgThumbnail.src = worksIndex.imageUrl;
         imgThumbnail.alt = worksIndex.title;
         imgThumbnail.classList.add("img-thumbnail");
+        
+        // Intégration du bouton déplacer
+        const buttonMove = document.createElement("button");
+        buttonMove.setAttribute("id", "button-move");
+        const iconMove = document.createElement('i');
+        iconMove.classList = "fa-solid fa-arrows-up-down-left-right" 
+        iconMove.setAttribute("id", "icon-move");
 
         // Intégration du bouton poubelle
         const iconDelete = document.createElement('i');
@@ -192,12 +200,7 @@ function displayThumbnail() {
         iconDelete.style.color = "#FFFFFF";
         
 
-        // Intégration du bouton déplacer
-        const buttonMove = document.createElement("button");
-        buttonMove.setAttribute("id", "button-move");
-        const iconMove = document.createElement('i');
-        iconMove.classList = "fa-solid fa-arrows-up-down-left-right" 
-        iconMove.setAttribute("id", "icon-move");
+        
 
         // Rattachement des balises
         thumbnailContainer.appendChild(buttonMove);
@@ -216,6 +219,10 @@ function displayThumbnail() {
 }
 displayThumbnail()
 
+// ------------------------------------------------------
+//                GESTION DE LA CONNEXION
+// ------------------------------------------------------
+
 // Connection utilisateur
 function userConnected() {
   const userToken = localStorage.getItem("token");
@@ -230,30 +237,38 @@ function userConnected() {
     // Emplacement de la barre de modification
     const header = document.querySelector("header");
 
-    header.style.flexDirection = "column-reverse";
-
     // Barre de modification en haut du site
     const rodModification = document.createElement("div");
     rodModification.classList.add("rod-modification");
 
+    // Création de l'icône modifier dans la barre de modification
     const iconModif = document.createElement("i");
     iconModif.classList = "fa-solid fa-pen-to-square";
     iconModif.setAttribute("id", "icon-modif");
 
+    // Création du label modifier dans la barre de modification
     const labelModif = document.createElement("p");
     labelModif.classList.add("label-text-modif");
     labelModif.textContent = "Mode édition";
 
+    // Création du bouton dans la barre de modification
     const buttonPublication = document.createElement("button");
     buttonPublication.classList.add("btn-publication");
     buttonPublication.textContent = "publier les changements";
     buttonPublication.type = "submit";
 
+    // Apparition du bouton modifier en mode connecté
+    const btnModif = document.getElementById("modifier-projets");
+    btnModif.style.display = "block";
+    
+    // Rattachement des balises parents/enfants
     header.appendChild(rodModification);
     rodModification.appendChild(iconModif);
     rodModification.appendChild(labelModif);
     rodModification.appendChild(buttonPublication);
+
   } else {
+    // Si pas connecté
     logout.style.display = "none";
     login.style.display = "block";
   }
@@ -263,6 +278,7 @@ userConnected();
 function userDisconnected() {
 
     const logout = document.getElementById("logout");
+    // Lorsque l'onclique sur logout, on appel la fonction disconnected
     logout.addEventListener("click", (event) => {
       event.preventDefault();
       disconnected();
@@ -270,8 +286,9 @@ function userDisconnected() {
 }
 
 function disconnected() {
+  // suppression des data dans le localStorage
   const closingLogout = localStorage.clear();
-
+    // rechargement de la page
     location.reload();
 }
 userDisconnected();
