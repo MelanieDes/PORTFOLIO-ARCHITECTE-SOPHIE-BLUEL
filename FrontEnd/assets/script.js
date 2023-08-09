@@ -163,9 +163,115 @@ document.querySelectorAll(".btn-recast").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
-fetch("http://localhost:5678/api/works")
+function displayThumbnail() {
+  const thumbnailContainer = document.getElementById('display-thumbnail');
+  thumbnailContainer.innerHTML = "";
+
+  // Récupération des travaux via l'API
+  fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
-  .then((works) => displayWorks(works))
+  .then((works) => {
+    for (let index = 0; index < works.length; index++) {
+      const worksIndex = works[index];
+      
+      if(worksIndex !== null) {
+
+        // Création du container des miniatures
+        const formThumbnail = document.createElement("div");
+        formThumbnail.classList.add("form-thumbnail");
+
+        // Intégration des images
+        const imgThumbnail = document.createElement("img");
+        imgThumbnail.src = worksIndex.imageUrl;
+        imgThumbnail.alt = worksIndex.title;
+        imgThumbnail.classList.add("img-thumbnail");
+
+        // Intégration du bouton poubelle
+        const iconDelete = document.createElement('i');
+        iconDelete.classList = "fa-solid fa-trash-can";
+        iconDelete.style.color = "#FFFFFF";
+        
+
+        // Intégration du bouton déplacer
+        const buttonMove = document.createElement("button");
+        buttonMove.setAttribute("id", "button-move");
+        const iconMove = document.createElement('i');
+        iconMove.classList = "fa-solid fa-arrows-up-down-left-right" 
+        iconMove.setAttribute("id", "icon-move");
+
+        // Rattachement des balises
+        thumbnailContainer.appendChild(buttonMove);
+        buttonMove.appendChild(iconMove);
+        thumbnailContainer.appendChild(formThumbnail);
+        formThumbnail.appendChild(imgThumbnail);
+        formThumbnail.appendChild(iconDelete);
+      }
+      
+    }
+  })
   .catch((error) => {
     console.log(`Erreur :` + error);
   });
+  
+}
+displayThumbnail()
+
+// Connection utilisateur
+function userConnected() {
+  const userToken = localStorage.getItem("token");
+  const login = document.getElementById("login");
+
+  // Condition si le token n'est pas null pour connexion
+  if(userToken !== null) {
+
+    // Suppression du lien login
+    login.style.display = "none";
+
+    // Emplacement de la barre de modification
+    const header = document.querySelector("header");
+
+    header.style.flexDirection = "column-reverse";
+
+    // Barre de modification en haut du site
+    const rodModification = document.createElement("div");
+    rodModification.classList.add("rod-modification");
+
+    const iconModif = document.createElement("i");
+    iconModif.classList = "fa-solid fa-pen-to-square";
+    iconModif.setAttribute("id", "icon-modif");
+
+    const labelModif = document.createElement("p");
+    labelModif.classList.add("label-text-modif");
+    labelModif.textContent = "Mode édition";
+
+    const buttonPublication = document.createElement("button");
+    buttonPublication.classList.add("btn-publication");
+    buttonPublication.textContent = "publier les changements";
+    buttonPublication.type = "submit";
+
+    header.appendChild(rodModification);
+    rodModification.appendChild(iconModif);
+    rodModification.appendChild(labelModif);
+    rodModification.appendChild(buttonPublication);
+  } else {
+    logout.style.display = "none";
+    login.style.display = "block";
+  }
+}
+userConnected();
+  
+function userDisconnected() {
+
+    const logout = document.getElementById("logout");
+    logout.addEventListener("click", (event) => {
+      event.preventDefault();
+      disconnected();
+    })
+}
+
+function disconnected() {
+  const closingLogout = localStorage.clear();
+
+    location.reload();
+}
+userDisconnected();

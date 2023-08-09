@@ -344,9 +344,68 @@ a {
 	justify-content: center;
 	align-items: center;
 }
-.btn-validate {
-	
+.btn-validate{
+	width: 237px;
+	height: 36px;
 }
+.display-thumbnail{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: justify;
+	align-items: center;
+	width: 430px;
+	gap: 10px;
+	border-bottom: solid 1px #B3B3B3;
+	margin: 40px;
+	padding-bottom: 50px;	
+}
+.form-thumbnail {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;	
+	position: relative;
+	box-sizing: border-box;
+	padding-bottom: 10px;		
+}
+.display-thumbnail img {
+	width: 76.86px;
+	height: 102.57px;
+}
+.fa-trash-can {
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	background-color: black;
+	border-radius: 2px;
+}
+#button-move {
+	justify-content: center;
+	width: 20px;
+	padding: 0;
+	color: transparent;
+	background-color: transparent;
+	border: none;
+}
+#icon-move {
+	width: 17px;
+	height: 17px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: transparent;
+	background-color: transparent;
+}
+#icon-move:hover {
+	color: white;
+	background-color: black;
+}
+
+
 
 
 

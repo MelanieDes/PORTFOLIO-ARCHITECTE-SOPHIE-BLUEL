@@ -103,7 +103,7 @@ form.addEventListener("submit", (event) => {
         })
         .then((userData) => {
             if(userData.token){
-                localStorage.setItem("token", data.token);
+                localStorage.setItem("token", userData.token);
                 console.log(userData.token);
                 // Redirection vers la page d'accueil
                 window.location.href = "./index.html";
