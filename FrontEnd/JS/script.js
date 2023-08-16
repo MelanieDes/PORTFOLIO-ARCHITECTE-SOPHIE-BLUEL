@@ -129,15 +129,19 @@ function selectCategory(categoryId) {
 function userConnected() {
   const userToken = localStorage.getItem("token");
   const login = document.getElementById("login");
+  const headerConnect = document.querySelector("header");
 
   // Condition si le token n'est pas null pour connexion
   if(userToken !== null) {
+
+    // Décaler le header de la hauteur de la baeere de modification
+    headerConnect.style.marginTop = "59px";
 
     // Suppression du lien login
     login.style.display = "none";
 
     // Emplacement de la barre de modification
-    const header = document.querySelector("header");
+    const barModifHeader = document.querySelector("body");
 
     // Barre de modification en haut du site
     const rodModification = document.createElement("div");
@@ -164,7 +168,7 @@ function userConnected() {
     btnModif.style.display = "block";
     
     // Rattachement des balises parents/enfants
-    header.appendChild(rodModification);
+    barModifHeader.appendChild(rodModification);
     rodModification.appendChild(iconModif);
     rodModification.appendChild(labelModif);
     rodModification.appendChild(buttonPublication);

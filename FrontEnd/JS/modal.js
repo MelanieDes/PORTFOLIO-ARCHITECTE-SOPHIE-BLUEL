@@ -60,13 +60,6 @@ function displayThumbnail() {
         imgThumbnail.alt = worksIndex.title;
         imgThumbnail.classList.add("img-thumbnail");
 
-        // Intégration du bouton déplacer
-        // const buttonMove = document.createElement("button");
-        // buttonMove.setAttribute("id", "button-move");
-        // const iconMove = document.createElement('i');
-        // iconMove.classList = "fa-solid fa-arrows-up-down-left-right" 
-        // iconMove.setAttribute("id", "icon-move");
-
         // Intégration du bouton poubelle
         const iconDelete = document.createElement('i');
         iconDelete.classList = "fa-solid fa-trash-can";
@@ -78,8 +71,6 @@ function displayThumbnail() {
         editeWorks.classList.add("edite")         
 
         // Rattachement des balises
-        // thumbnailContainer.appendChild(buttonMove);
-        // buttonMove.appendChild(iconMove);
         thumbnailContainer.appendChild(formThumbnail);
         formThumbnail.appendChild(imgThumbnail);
         formThumbnail.appendChild(iconDelete);
@@ -98,11 +89,9 @@ const openModal2 = function (event) {
   event.preventDefault();
   const target = document.getElementById(event.target.getAttribute("class"));
   target.style.display = null;
-  // target.removeAttribute("aria-hidden");
-  // target.setAttribute("aria-modal", "true");
   modal = target;
   modal.addEventListener("click", closeModal2);
-  modal.querySelector(".btn-close").addEventListener("click", closeModal2);
+  modal.querySelector(".btn-validate").addEventListener("click", closeModal2);
   modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
 };
 
@@ -113,7 +102,7 @@ const closeModal2 = function (event) {
   modal.setAttribute("aria-hidden", "true");
   modal.removeAttribute("aria-modal");
   modal.removeEventListener("click", closeModal2);
-  modal.querySelector(".btn-close").removeEventListener("click", closeModal2);
+  modal.querySelector(".btn-validate").removeEventListener("click", closeModal2);
   modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
   modal = null;
 };
@@ -121,3 +110,42 @@ const closeModal2 = function (event) {
 document.querySelectorAll(".btn-validate").forEach((button) => {
   button.addEventListener("click", openModal);
 });
+
+// ------------------------------------------------------
+//                SUPPRESSION DES TRAVAUX
+// ------------------------------------------------------
+const token = localStorage.getItem("token");
+
+function deleteWorks(id) {
+    
+    fetch(`http://localhost:5678/api/works/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+      })
+        .then((reponse) => {
+          if (reponse.status == 204) {
+            console.log("Suppression du Projet");
+          } else {
+            alert("Erreur dans la suppression du projet");
+          }
+        })
+        .catch((error) => {
+            console.log(`Erreur :` + error);
+    });
+}
+
+// Evenement dans le container miniatures au clic sur le bouton supprimer
+const thumbnailDelete = document.querySelector(".display-thumbnail")
+thumbnailDelete.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    // Liaison entre l'id et le bouton supprimer
+
+
+
+
+})
