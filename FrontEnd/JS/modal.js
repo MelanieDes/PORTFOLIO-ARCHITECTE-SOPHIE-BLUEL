@@ -2,6 +2,7 @@
 //                GESTION DE LA MODALE.
 // ------------------------------------------------------
 let modal = null;
+// let modal2 = null;
 
 const openModal = function (event) {
   event.preventDefault();
@@ -11,7 +12,7 @@ const openModal = function (event) {
   target.setAttribute("aria-modal", "true");
   modal = target;
   modal.addEventListener("click", closeModal);
-  modal.querySelector(".btn-close").addEventListener("click", closeModal);
+  modal.querySelector(".js-btn-close").addEventListener("click", closeModal);
   modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
 };
 
@@ -22,10 +23,40 @@ const closeModal = function (event) {
   modal.setAttribute("aria-hidden", "true");
   modal.removeAttribute("aria-modal");
   modal.removeEventListener("click", closeModal);
-  modal.querySelector(".btn-close").removeEventListener("click", closeModal);
+  modal.querySelector(".js-btn-close").removeEventListener("click", closeModal);
   modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
   modal = null;
 };
+
+// // Ouverture de la Modal 2
+// const openModal2 = function (event) {
+//   event.preventDefault();
+//   const target2 = document.getElementById(event.target2.getAttribute("href"));
+//   target2.style.display = null;
+//   modal2 = target2;
+//   modal2.addEventListener("click", closeModal2);
+//   modal2.querySelector(".btn-close").addEventListener("click", closeModal2);
+//   modal.querySelector(".btn-return-arrow").addEventListener("click", closeModal2);
+//   modal2.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
+// };
+
+// const closeModal2 = function (event) {
+//   if (modal2 === null) return;
+//   event.preventDefault();
+//   modal2.style.display = "none";
+//   modal2.setAttribute("aria-hidden", "true");
+//   modal2.removeAttribute("aria-modal");
+//   modal2.removeEventListener("click", closeModal2);
+//   modal2.querySelector(".btn-close").removeEventListener("click", closeModal2);
+//   modal.querySelector(".btn-return-arrow").removeEventListener("click", closeModal2);
+//   modal2.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
+//   modal2 = null;
+// };
+
+// const closeModalOne = document.getElementById("close-modal1");
+// closeModalOne.addEventListener("click", () => {
+//   console.log(closeModalOne)
+// })
 
 // Evite que le code se duplique à chaque clic
 const stopPropagation = function (event) {
@@ -88,10 +119,8 @@ function displayThumbnail() {
         iconThumbnail.appendChild(btnDelete);
         btnDelete.appendChild(iconDelete);
         formThumbnail.appendChild(imgThumbnail);
-        formThumbnail.appendChild(editeWorks);  
-             
-      }    
-      console.log(works);  
+        formThumbnail.appendChild(editeWorks);               
+      }   
     }    
   })
   .catch((error) => {
@@ -100,28 +129,7 @@ function displayThumbnail() {
 }
 displayThumbnail()
 
-// // Ouverture de la Modal 2
-// const openModal2 = function (event) {
-//   event.preventDefault();
-//   const target = document.getElementById(event.target.getAttribute("href"));
-//   target.style.display = null;
-//   modal = target;
-//   modal.addEventListener("click", closeModal2);
-//   modal.querySelector(".btn-close").addEventListener("click", closeModal2);
-//   modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
-// };
 
-// const closeModal2 = function (event) {
-//   if (modal === null) return;
-//   event.preventDefault();
-//   modal.style.display = "none";
-//   modal.setAttribute("aria-hidden", "true");
-//   modal.removeAttribute("aria-modal");
-//   modal.removeEventListener("click", closeModal2);
-//   modal.querySelector(".btn-close").removeEventListener("click", closeModal2);
-//   modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
-//   modal = null;
-// };
 
 document.querySelectorAll(".btn-validate").forEach((button) => {
   button.addEventListener("click", openModal);
@@ -148,7 +156,7 @@ thumbnail.addEventListener("click", (event) => {
 
     deleteWorks(idBtnDelete);
     displayThumbnail();
-    // displayWorks();
+    displayWorks();
   }
 });
 
@@ -175,11 +183,4 @@ function deleteWorks(id) {
     });
 }
 
-// Evenement dans le container miniatures au clic sur le bouton supprimer
-const thumbnailDelete = document.querySelector(".display-thumbnail")
-thumbnailDelete.addEventListener('click', (event) => {
-    event.preventDefault();
-    console.log(event.target);
-    // Liaison entre l'id et le bouton supprimer
-    deleteWorks();
-})
+
