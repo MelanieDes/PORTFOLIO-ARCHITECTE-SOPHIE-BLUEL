@@ -43,46 +43,11 @@
 				</div>
 				<div class="add-delete-picture">
 					<!-- Ouverture de la deuxième modale -->
-					<button type="submit" class="btn-validate" href="#modal2" id="validate-modal">Ajouter une photo</button>
+					<button type="submit" class="btn-validate" href="modal.html#modal2" id="validate-modal">Ajouter une photo</button>
 					<a id="delete-picture">Supprimer la galerie</a>
 				</div>
 			</div>
-		</aside>
-		<aside id="modal2" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal2" style="display: none;">
-			<div class="container-modal js-modal-stop" id="container-modal2">
-				<div class="modal-close">
-					<button type="submit" class="btn-return-arrow" id="return-modal2">
-						<i class="fa-solid fa-arrow-left"></i>
-					</button>
-					<button type="submit" class="js-btn-close" id="close-modal2">
-						<i class="fa-solid fa-xmark"></i>
-					</button>
-				</div>
-				<h2 id="title-modal2">Ajout photo</h2>
-				<form class="add-form" method="post" enctype="multipart/form-data">
-					<div id="add-picture">
-						<i id="icon-img" class="fa-regular fa-image"></i>
-						<label for="selected" id="btn-add-picture">+ Ajouter photo</label>
-						<input type="file" id="selected" accept="image/jpg image/png" required><br>
-						<p>jpg, png : 4mo max</p>
-					</div>
-					<div class="title-picture">
-						<label for="title" class="label-form">Titre</label>
-						<input id="title" name="title" class="fields-form" required<br>
-					</div>
-					<div class="categories-picture">
-						<label for="category" id="choose-category" class="label-form">Catégories</label>
-						<select name="category" id="list-category" class="fields-form" type="text" required>
-							<option value="fields-selected"></option>
-							<option value="1">Objets</option>
-							<option value="2">Appartements</option>
-							<option value="3">Hôtel & Restaurants</option>
-						</select>
-					</div>
-					<button type="submit" class="btn-validate" href="#modal1" id="validate-modal2">Valider</button>					
-				</form>
-			</div>
-		</aside>
+		</aside>		
 	<!-- </div> -->
 	<section id="introduction">
 		<figure>

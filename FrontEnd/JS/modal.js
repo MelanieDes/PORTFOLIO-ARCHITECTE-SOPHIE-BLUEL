@@ -2,15 +2,18 @@
 //                GESTION DE LA MODALE.
 // ------------------------------------------------------
 let modal = null;
-// let modal2 = null;
 
-const openModal = function (event) {
+const openModal = async function (event) {
   event.preventDefault();
-  const target = document.querySelector(event.target.getAttribute("href"));
-  target.style.display = null;
-  target.removeAttribute("aria-hidden");
-  target.setAttribute("aria-modal", "true");
-  modal = target;
+  const target = event.target.getAttribute("href");
+  if(target.startsWith("#")) {
+    modal = document.querySelector(target)
+  } else {
+    modal = await loadModal(target)
+  }
+  modal.style.display = null;
+  modal.removeAttribute("aria-hidden");
+  modal.setAttribute("aria-modal", "true");
   modal.addEventListener("click", closeModal);
   modal.querySelector(".js-btn-close").addEventListener("click", closeModal);
   modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
@@ -28,46 +31,30 @@ const closeModal = function (event) {
   modal = null;
 };
 
-// // Ouverture de la Modal 2
-// const openModal2 = function (event) {
-//   event.preventDefault();
-//   const target2 = document.getElementById(event.target2.getAttribute("href"));
-//   target2.style.display = null;
-//   modal2 = target2;
-//   modal2.addEventListener("click", closeModal2);
-//   modal2.querySelector(".btn-close").addEventListener("click", closeModal2);
-//   modal.querySelector(".btn-return-arrow").addEventListener("click", closeModal2);
-//   modal2.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
-// };
-
-// const closeModal2 = function (event) {
-//   if (modal2 === null) return;
-//   event.preventDefault();
-//   modal2.style.display = "none";
-//   modal2.setAttribute("aria-hidden", "true");
-//   modal2.removeAttribute("aria-modal");
-//   modal2.removeEventListener("click", closeModal2);
-//   modal2.querySelector(".btn-close").removeEventListener("click", closeModal2);
-//   modal.querySelector(".btn-return-arrow").removeEventListener("click", closeModal2);
-//   modal2.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
-//   modal2 = null;
-// };
-
-// const closeModalOne = document.getElementById("close-modal1");
-// closeModalOne.addEventListener("click", () => {
-//   console.log(closeModalOne)
-// })
 
 // Evite que le code se duplique à chaque clic
 const stopPropagation = function (event) {
   event.stopPropagation();
 };
 
+const loadModal = async function (url) {
+  // Idéalement un loader pour indiquer à l'utilisateur serait parfait
+  const target = '#' + url.split('#')[1];
+  const exitingModal = document.querySelector(target)
+  if(exitingModal !== null) return exitingModal // Evite de répéter l'élément sur la page au chargement
+  const html = await fetch(url).then(response => response.text());
+  const element = document.createRange().createContextualFragment(html).querySelector(target);
+  if(element === null) throw `L'élément ${target} n'a pas été trouvé dans la page ${url}`
+  console.log(html, target)
+  document.body.append(element);
+  return element
+}
+
 document.querySelectorAll(".btn-recast").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
-document.querySelectorAll(".btn-close").forEach((button) => {
+document.querySelectorAll(".js-btn-close").forEach((button) => {
   button.addEventListener('click', closeModal);
 })
 
@@ -129,12 +116,36 @@ function displayThumbnail() {
 }
 displayThumbnail()
 
-
-
 document.querySelectorAll(".btn-validate").forEach((button) => {
   button.addEventListener("click", openModal);
 });
 
 
+// function thumbnailCategory(categories) {
+//   // Création de l'élément du Dom qui accueillera les catégories
+  
 
+//   fetch("http://localhost:5678/api/categories")
+//   .then((response) => response.json())
+//   .then((categories) => {
+//     const sectionChooseCategory = document.querySelector(".fields-form");
+//     for (let index = 0; index < categories.length; index++) {
+//       const categoryIndex = categories[index];
+  
+//       // Création d'une balise dédiée à un bouton filtre de la gallerie
+//       const chooseCategory = document.createElement("option");
+//       chooseCategory.classList.add("list-category");
+//       chooseCategory.innerHTML = categoryIndex.name;
+        
+//       // Lien entre la balise input et la section filtre
+//       sectionChooseCategory.appendChild(chooseCategory);
+//     }
+//     console.log(categories);
+//       })
+//   .catch((error) => {
+//     console.log(`Erreur :` + error);
+//   });
+  
+    
+// }
 
