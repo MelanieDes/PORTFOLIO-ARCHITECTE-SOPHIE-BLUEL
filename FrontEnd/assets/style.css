@@ -413,7 +413,7 @@ span {
   overflow: auto;
   border-radius: 10px;
 }
-.btn-close {
+.js-btn-close {
   border: none;
   font-size: 20px;
   background-color: white;
