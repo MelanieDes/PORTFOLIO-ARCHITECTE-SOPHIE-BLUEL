@@ -2,6 +2,7 @@
 //                GESTION DE LA MODALE.
 // ------------------------------------------------------
 let modal = null;
+let modal2 = null;
 
 const openModal = async function (event) {
   event.preventDefault();
@@ -31,6 +32,34 @@ const closeModal = function (event) {
   modal = null;
 };
 
+const openModal2 = async function (event) {
+  event.preventDefault();
+  const target2 = event.target.getAttribute("href");
+  if(target2.startsWith("#")) {
+    modal2 = document.querySelector(target2)
+  } else {
+    modal2 = await loadModal(target2)
+  }
+  modal2.style.display = null;
+  modal2.removeAttribute("aria-hidden");
+  modal2.setAttribute("aria-modal", "true");
+  modal2.addEventListener("click", closeModal2);
+  modal2.querySelector(".js-btn-close-2").addEventListener("click", closeModal2);
+  modal2.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
+};
+
+const closeModal2 = function (event) {
+  if (modal2 === null) return;
+  event.preventDefault();
+  modal2.style.display = "none";
+  modal2.setAttribute("aria-hidden", "true");
+  modal2.removeAttribute("aria-modal");
+  modal2.removeEventListener("click", closeModal2);
+  modal2.querySelector(".js-btn-close-2").removeEventListener("click", closeModal2);
+  modal2.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
+  modal2 = null;
+};
+
 
 // Evite que le code se duplique à chaque clic
 const stopPropagation = function (event) {
@@ -45,18 +74,20 @@ const loadModal = async function (url) {
   const html = await fetch(url).then(response => response.text());
   const element = document.createRange().createContextualFragment(html).querySelector(target);
   if(element === null) throw `L'élément ${target} n'a pas été trouvé dans la page ${url}`
-  console.log(html, target)
   document.body.append(element);
-  return element
+  thumbnailCategory()
+  return element 
 }
 
 document.querySelectorAll(".btn-recast").forEach((a) => {
   a.addEventListener("click", openModal);
 });
 
-document.querySelectorAll(".js-btn-close").forEach((button) => {
-  button.addEventListener('click', closeModal);
-})
+const buttonModal1 = document.querySelector(".js-btn-close");
+buttonModal1.addEventListener('click', closeModal);
+
+const buttonModal = document.querySelector(".js-btn-close-2");
+buttonModal1.addEventListener('click', closeModal);
 
 // Affichage des travaux miniatures dans la modale
 function displayThumbnail() {
@@ -117,35 +148,66 @@ function displayThumbnail() {
 displayThumbnail()
 
 document.querySelectorAll(".btn-validate").forEach((button) => {
-  button.addEventListener("click", openModal);
+  button.addEventListener("click", openModal2);
 });
 
 
-// function thumbnailCategory(categories) {
-//   // Création de l'élément du Dom qui accueillera les catégories
-  
+function thumbnailCategory() {
+  fetch("http://localhost:5678/api/categories")
+        .then((response) => response.json())
+        .then((categories) => {
+          const sectionChooseCategory = document.querySelector("#list-category");
+          for(let index = 0; index < categories.length; index++) {
+            const categoryIndex = categories[index];
 
-//   fetch("http://localhost:5678/api/categories")
-//   .then((response) => response.json())
-//   .then((categories) => {
-//     const sectionChooseCategory = document.querySelector(".fields-form");
-//     for (let index = 0; index < categories.length; index++) {
-//       const categoryIndex = categories[index];
-  
-//       // Création d'une balise dédiée à un bouton filtre de la gallerie
-//       const chooseCategory = document.createElement("option");
-//       chooseCategory.classList.add("list-category");
-//       chooseCategory.innerHTML = categoryIndex.name;
-        
-//       // Lien entre la balise input et la section filtre
-//       sectionChooseCategory.appendChild(chooseCategory);
-//     }
-//     console.log(categories);
-//       })
-//   .catch((error) => {
-//     console.log(`Erreur :` + error);
-//   });
-  
-    
-// }
+            // Création d'une balise dédiée à un bouton filtre de la gallerie
+            const chooseCategory = document.createElement('option');
+            chooseCategory.classList.add("list-category");
+            chooseCategory.innerHTML = categoryIndex.name;
+            chooseCategory.value = categoryIndex.id;
 
+            // Lien entre la balise input et la sectiob filtre
+            sectionChooseCategory.appendChild(chooseCategory);
+          }
+        })
+        .catch((error) => {
+          console.log(`Erreur :` + error);
+        });
+}
+
+
+function registerAddWorkEventListener() {
+  const form = document.querySelector(".add-form");
+  form.addEventListener('Submit', (event) => {
+    event.preventDefault();
+   //Capture de l'élément seléctionné
+   const selectedFile = document.querySelector("selected");
+   // Valeure du champs titre
+   const titlePicture = document.querySelector("input[name='title']");
+   // valeur du champs catégorie
+   const categoryList = document.querySelector("select[name='category']");
+    console.log(selectedFile.value);
+    console.log(categoryList.value);
+    console.log(titlePicture.value);
+   const formData = new FormData();
+
+   formData.append("titlePicture", title.value);
+   formData.append("categoryList", category.value);
+   formData.append("selectedFile", selectedFile.files[0]);
+   const token = localStorage.getItem('token');
+
+   fetch(`http://localhost:5678/api/works`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/form-data",          
+        },
+        body: formData,
+      })
+  })
+}       
+
+
+
+  
+  

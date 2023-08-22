@@ -15,23 +15,23 @@
 <body>
 <main>
 	
-	<!-- <div class="modals"> -->
 		<aside id="modal2" class="modal" role="dialog" aria-labelledby="title-modal2">
 			<div class="container-modal js-modal-stop" id="container-modal2">
 				<div class="modal-close">
 					<button type="submit" class="btn-return-arrow" id="return-modal2">
 						<i class="fa-solid fa-arrow-left"></i>
 					</button>
-					<button type="submit" class="js-btn-close" id="close-modal2">
+					<button type="submit" class="js-btn-close-2" id="close-modal2">
 						<i class="fa-solid fa-xmark"></i>
 					</button>
 				</div>
 				<h2 id="title-modal2">Ajout photo</h2>
 				<form class="add-form" method="post" enctype="multipart/form-data">
+					<div id="img-preview"></div>
 					<div id="add-picture">
 						<i id="icon-img" class="fa-regular fa-image"></i>
 						<label for="selected" id="btn-add-picture">+ Ajouter photo</label>
-						<input type="file" id="selected" accept="image/jpg image/png" required><br>
+						<input type="file" name="image" id="selected" accept="image/jpg image/png" required><br>
 						<p>jpg, png : 4mo max</p>
 					</div>
 					<div class="title-picture">
@@ -41,8 +41,8 @@
 					<div class="categories-picture">
 						<label for="category" id="choose-category" class="label-form">Catégories</label>
 						<select name="category" id="list-category" class="fields-form" type="text" required>
-							<!-- <option value="fields-selected"></option>
-							<option value="1">Objets</option>
+							<option value="fields-selected"></option>
+							<!-- <option value="1">Objets</option>
 							<option value="2">Appartements</option>
 							<option value="3">Hôtel & Restaurants</option> -->
 						</select>
@@ -51,5 +51,10 @@
 				</form>
 			</div>
 		</aside>
-	<!-- </div> -->
+	</main>
+</body>
+<script src="./JS/script.js"></script>
+<script src="./JS/modal.js"></script>
+
+	
 	
