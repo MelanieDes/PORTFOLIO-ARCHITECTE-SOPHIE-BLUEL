@@ -45,6 +45,7 @@ const openModal2 = async function (event) {
   modal2.setAttribute("aria-modal", "true");
   modal2.addEventListener("click", closeModal2);
   modal2.querySelector(".js-btn-close-2").addEventListener("click", closeModal2);
+  modal2.querySelector(".btn-return-arrow").addEventListener("click", closeModal2);
   modal2.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
 };
 
@@ -56,10 +57,10 @@ const closeModal2 = function (event) {
   modal2.removeAttribute("aria-modal");
   modal2.removeEventListener("click", closeModal2);
   modal2.querySelector(".js-btn-close-2").removeEventListener("click", closeModal2);
+  modal2.querySelector(".btn-return-arrow").removeEventListener("click", closeModal2);
   modal2.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
   modal2 = null;
 };
-
 
 // Evite que le code se duplique à chaque clic
 const stopPropagation = function (event) {
@@ -88,6 +89,15 @@ buttonModal1.addEventListener('click', closeModal);
 
 const buttonModal = document.querySelector(".js-btn-close-2");
 buttonModal1.addEventListener('click', closeModal);
+
+function returnArrowModal() {
+	const returnArrow = document.getElementById("return-modal2");
+	returnArrow.addEventListener('click', (event) => {
+		event.preventDefault();
+		closeModal2();
+})
+}
+
 
 // Affichage des travaux miniatures dans la modale
 function displayThumbnail() {
@@ -175,37 +185,36 @@ function thumbnailCategory() {
         });
 }
 
+// function registerAddWorkEventListener() {
+//   const form = document.querySelector(".add-form");
+//   form.addEventListener('Submit', (event) => {
+//     event.preventDefault();
+//   //Capture de l'élément seléctionné
+//   const fileInput = document.querySelector("input[name='image']");
+//   // Valeure du champs titre
+//   const title = document.querySelector("input[name='title']");
+//   // valeur du champs catégorie
+//   const category = document.querySelector("select[name='category']");
+//     console.log(fileInput.value);
+//     console.log(category.value);
+//     console.log(title.value);
+//   const formData = new FormData();
 
-function registerAddWorkEventListener() {
-  const form = document.querySelector(".add-form");
-  form.addEventListener('Submit', (event) => {
-    event.preventDefault();
-   //Capture de l'élément seléctionné
-   const selectedFile = document.querySelector("selected");
-   // Valeure du champs titre
-   const titlePicture = document.querySelector("input[name='title']");
-   // valeur du champs catégorie
-   const categoryList = document.querySelector("select[name='category']");
-    console.log(selectedFile.value);
-    console.log(categoryList.value);
-    console.log(titlePicture.value);
-   const formData = new FormData();
+//   formData.append("title", title.value);
+//   formData.append("category", category.value);
+//   formData.append("image", fileInput.files[0]);
+//    const token = localStorage.getItem("token");
 
-   formData.append("titlePicture", title.value);
-   formData.append("categoryList", category.value);
-   formData.append("selectedFile", selectedFile.files[0]);
-   const token = localStorage.getItem('token');
-
-   fetch(`http://localhost:5678/api/works`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: "application/form-data",          
-        },
-        body: formData,
-      })
-  })
-}       
+//    fetch(`http://localhost:5678/api/works`, {
+//         method: "POST",
+// 		body: formData,
+//         headers: {
+//           Authorization: `Bearer + ${token}`,
+//           Accept: "application/form-data",          
+//         },        
+//       })
+//   })
+// }       
 
 
 

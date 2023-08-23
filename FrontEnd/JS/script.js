@@ -7,7 +7,7 @@ fetch("http://localhost:5678/api/works")
   .then((works) => displayWorks(works))
   .catch((error) => {
     console.log(`Erreur :` + error);
-  });
+});
 
 function displayWorks(works) {
   for (let index = 0; index < works.length; index++) {
@@ -22,6 +22,7 @@ function displayWorks(works) {
     imageElement.alt = worksIndex.title;
     const titleElement = document.createElement("h3");
     titleElement.innerHTML = worksIndex.title;
+    
     // Lien entre la balise figure et la section gallery
     sectionGallery.appendChild(worksElement);
     // lien entre les balises interne à la section figure
@@ -29,6 +30,7 @@ function displayWorks(works) {
     worksElement.appendChild(titleElement);
   }
 }
+
 
 // ------------------------------------------------------
 // Récupérer dynamiquement les categories de l'architecture.
