@@ -108,7 +108,7 @@ form.addEventListener("submit", (event) => {
                 // Redirection vers la page d'accueil
                 window.location.href = "./index.html";
             } else {
-                throw new Error("Erreur lors de la connexion");
+                throw new Error("Erreur d’identifiant ou de mot de passe");
             }
         })
         .catch((error) => {

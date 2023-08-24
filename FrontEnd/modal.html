@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="UTF-8">
-		<title>Sophie Bluel - Architecte d'intérieur</title>
+		<title>Sophie Bluel - Modal New Works</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,12 +27,15 @@
 						</div>
 						<h2 id="title-modal2">Ajout photo</h2>
 						<form class="add-form" method="post" enctype="multipart/form-data">
+													
 							<div id="add-picture">
-								<div id="img-preview"></div>
+								<div class="img-preview">
+									<img id="file-ip-1-preview" src="" alt="">
+								</div>									
 								<i id="icon-img" class="fa-regular fa-image"></i>
-								<label for="image" id="btn-add-picture">+ Ajouter photo</label>
-								<input type="file" name="image" id="image" accept="image/jpg image/png" required><br>
-								<p>jpg, png : 4mo max</p>
+								<label for="file-ip-1" id="btn-add-picture">+ Ajouter photo</label>
+								<input type="file" name="file-ip-1" id="file-ip-1" onchange="previewPictrure(event)" accept="image/jpg image/png" required><br>
+								<p id="size-max-picture">jpg, png : 4mo max</p>
 							</div>
 							<div class="title-picture">
 								<label for="title" class="label-form">Titre</label>
@@ -42,9 +45,7 @@
 								<label for="category" id="choose-category" class="label-form">Catégories</label>
 								<select name="category" id="list-category" class="fields-form" type="text" required>
 									<option value="fields-selected"></option>
-									<!-- <option value="1">Objets</option>
-									<option value="2">Appartements</option>
-									<option value="3">Hôtel & Restaurants</option> -->
+									<!-- Affichage des catégories via l'API -->
 								</select>
 							</div>
 							<button type="submit" class="btn-validate" href="index.html" id="validate-modal2">Valider</button>				
@@ -54,7 +55,7 @@
 			</main>
 		<script src="./JS/script.js"></script>
 		<script src="./JS/modal.js"></script>
-		<script src="./JS/add.js"></script>
+		<!-- <script src="./JS/add.js"></script> -->
 	</body>
 </html>
 
