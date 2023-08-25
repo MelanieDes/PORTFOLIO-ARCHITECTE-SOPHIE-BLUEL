@@ -160,9 +160,9 @@ function displayThumbnail() {
 }
 displayThumbnail()
 
-document.querySelectorAll(".btn-validate").forEach((button) => {
-  button.addEventListener("click", openModal2);
-});
+const buttonModalOne = document.getElementById("validate-modal")
+buttonModalOne.addEventListener("click", openModal2);
+
 
 // Affichage des catégories dans la modale 2
 function thumbnailCategory() {
@@ -190,29 +190,42 @@ function thumbnailCategory() {
 
 // Prévisualisation de l'image selectionné
 function previewPictrure(event) {
-    if(event.target.files.length > 0) {
+    if(event.target.files.length >= 0) {
         const src = URL.createObjectURL(event.target.files[0]);
-        const preview = document.getElementById("file-ip-1-preview");
+        const preview = document.querySelector("#file-ip-1-preview");
         const iconImg = document.getElementById("icon-img");
         preview.src = src;
         preview.style.display = "block";
         iconImg.style.display = "none";
-    } 
+    }
 }
 
-//Validation et vérification formulaire
-// function validateForm() {
+// Evenement de validation du formulaire
+// function validateButton() {
+//     const validateBtn = document.getElementById("validate-modal2");
+//     validateBtn.addEventListener("click", (event) => {
+//         event.preventDefault();
+//         // registerAddWorkEventListener();
+//       });
+// }
+
+
+
+// function registerAddWorkEventListener() {
+//   const addWorksForm = document.querySelector(".add-form");
+//   addWorksForm.addEventListener('submit', (event) => {
+//     event.preventDefault();
 //   //Capture de l'élément seléctionné
-//   const fileInput = document.querySelector("input[name='image']").files[0];
-
+//   const fileInput = document.getElementById("image");
 //   // Valeure du champs titre
-//   const title = document.querySelector("input[name='title']").value;
-  
+//   const title = document.querySelector("input[name='title']");
 //   // valeur du champs catégorie
-//   const category = document.querySelector("select[name='category']").value;
-
-//   //Condition de validation gestion des erreurs
-//   if (fileInput === undefined) {
+//   const category = document.querySelector("select[name='category']");
+//     console.log(fileInput.files[0]);
+//     console.log(category.value);
+//     console.log(title.value);
+//   // Condition de validation gestion des erreurs
+//   if (fileInput == undefined) {
 //     alert("Veuillez choisir une image");
 //     return;
 //   }
@@ -224,110 +237,33 @@ function previewPictrure(event) {
 //     alert("Veuillez selectionner une catégorie");
 //     return;
 //   }
-
-//   // Création FormData avec les éléments du formulaire
-
-//   let formData = new FormData();
-//   formData.append("image", fileInput);
-//   formData.append("title", title);
-//   formData.append("category", category);
-
-  // Envoie FormData dans la requète poste
   
-//   fetch("http://localhost:5678/api/works", {
-//     method: "POST",
-//     headers: {
-//       Authorization: `Bearer + ${token}`,
-//     },
-//     body: formData,
+//   const formData = new FormData();
+
+//   formData.append("title", title.value);
+//   formData.append("category", category.value);
+//   formData.append("image", fileInput.files[0]);
+
+//   const token = localStorage.getItem("token");
+
+//    fetch(`http://localhost:5678/api/works`, {
+//         method: "POST",
+// 		    headers: {
+//           Authorization: `Bearer ${token}`,
+//           Accept: "application/json",          
+//         }, 
+//         body: formData,       
+//       })
+// 	  .then((response) => {
+// 		      if (response.ok) {
+// 		        console.log("Téléchargement réussi");
+// 		        return response.json();               
+// 		      } else {
+// 		        alert("erreur lors du transfert");		        
+// 		      }			  
+// 		    })
 //   })
-//     .then((response) => {
-//       if (response.ok) {
-//         console.log("Téléchargement réussi");
-//         // return response.json();               
-//       } else {
-//         alert("Erreur dans le téléchargement du projet");
-//         // throw new Error("erreur lors du transfert"); 
-//       }
-      
-//     })
-//     .then((data) => {
-//         console.log(data);
-//         closeModale2();
-//         document.querySelector(".add-form").reset();
-//         prevImg.remove();
-//         iconImg.style.display = "block";
-//         openModal();
-//         displayThumbnail();
-//         displayWorks();
-//     })
-//     .catch((error) => {
-//       console.error(`Erreur :` + error);
-//     });
-// }
-
-// Evenement de validation du formulaire
-function validateButton() {
-    const validateBtn = document.getElementById("validate-modal2");
-    validateBtn.addEventListener("click", (event) => {
-        event.preventDefault();
-        registerAddWorkEventListener();
-      });
-}
-function registerAddWorkEventListener() {
-  const form = document.querySelector(".add-form");
-  form.addEventListener('Submit', (event) => {
-    event.preventDefault();
-  //Capture de l'élément seléctionné
-  const fileInput = document.querySelector("input[name='file-ip-1']");
-  // Valeure du champs titre
-  const title = document.querySelector("input[name='title']");
-  // valeur du champs catégorie
-  const category = document.querySelector("select[name='category']");
-    console.log(fileInput.value);
-    console.log(category.value);
-    console.log(title.value);
-  // Condition de validation gestion des erreurs
-  if (fileInput === undefined) {
-    alert("Veuillez choisir une image");
-    return;
-  }
-  if (title == "") {
-    alert("Veuillez définir un titre");
-    return;
-  }
-  if (category == "fields-selected") {
-    alert("Veuillez selectionner une catégorie");
-    return;
-  }
-  
-  const formData = new FormData();
-
-  formData.append("title", title.value);
-  formData.append("category", category.value);
-  formData.append("image", fileInput.files[0]);
-   const token = localStorage.getItem("token");
-
-   fetch(`http://localhost:5678/api/works`, {
-        method: "POST",
-		body: formData,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          // Accept: "application/form-data",          
-        },        
-      })
-	  .then((response) => {
-		      if (response.ok) {
-		        console.log("Téléchargement réussi");
-		        // return response.json();               
-		      } else {
-		        alert("Erreur dans le téléchargement du projet");
-		        // throw new Error("erreur lors du transfert"); 
-		      }
-			  
-		    })
-  })
-}       
+// }       
 
 
 

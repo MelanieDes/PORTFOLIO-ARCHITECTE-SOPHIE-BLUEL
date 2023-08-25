@@ -23,8 +23,7 @@ const errorDisplay = (tag, message, valid) => {
 // Fonction pour saisie de l'email avec récuparation de la valeur de l'input
 const emailChecker = (value) => {
     // Regex pour email
-    email = value
-    return
+    email = value;
     if(!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
         errorDisplay("email", "Le mail n'est pas valide");
         email = null;
@@ -32,12 +31,12 @@ const emailChecker = (value) => {
         errorDisplay("email", "", true);
         email = value;
     }
+    return;
 };
 
 // Fonction pour la saisie du mot de passe
 const passwordChecker = (value) => {
-    password = value
-    return
+    password = value;
     if (!value.match(
         // Regex pour password
         //   /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
@@ -54,6 +53,7 @@ const passwordChecker = (value) => {
             errorDisplay("password", "", true);
             password = value;
         }
+        return;
     };
 
 // 
@@ -85,7 +85,6 @@ form.addEventListener("submit", (event) => {
             email,
             password,
         };
-        console.log(data);
         fetch("http://localhost:5678/api/users/login", {
             method: "POST",
             headers: {
@@ -95,16 +94,15 @@ form.addEventListener("submit", (event) => {
             body: JSON.stringify(data)
         })
         .then((response) => {
-            if(!response.ok){
-                throw new Error("Erreur d'identifiant ou de mot de passe")
+            if(response.ok){
+                return response.json()               
             } else {
-                return response.json()
+                throw new Error("Erreur d'identifiant ou de mot de passe")
             }
         })
         .then((userData) => {
             if(userData.token){
                 localStorage.setItem("token", userData.token);
-                console.log(userData.token);
                 // Redirection vers la page d'accueil
                 window.location.href = "./index.html";
             } else {
