@@ -37,13 +37,9 @@ const emailChecker = (value) => {
 // Fonction pour la saisie du mot de passe
 const passwordChecker = (value) => {
     password = value;
-    if (!value.match(
-        // Regex pour password
-        //   /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/
-          /^(?=(.*[a-z]){1,})(?=(.*[\d]){1,}).{6,}$/
-        )) {
+    if (!value.match(/^(?=(.*[a-z]){1,})(?=(.*[\d]){1,}).{6,}$/)) {
             errorDisplay(
-            "password", "Minimum de 6 caractères, une majuscule, un chiffre et un caractère spécial"
+            "password", "Minimum de 6 caractères, une majuscule et un chiffre"
             );            
             password = null;
         } else if (value.length < 6) {            
@@ -85,6 +81,8 @@ form.addEventListener("submit", (event) => {
             email,
             password,
         };
+        email = null;
+        password = null;
         fetch("http://localhost:5678/api/users/login", {
             method: "POST",
             headers: {
@@ -97,16 +95,20 @@ form.addEventListener("submit", (event) => {
             if(response.ok){
                 return response.json()               
             } else {
-                throw new Error("Erreur d'identifiant ou de mot de passe")
+                return Error("Erreur d'identifiant ou de mot de passe")
             }
         })
         .then((userData) => {
+            // Si token valide renvoi vers la page d'accueil
             if(userData.token){
                 localStorage.setItem("token", userData.token);
                 // Redirection vers la page d'accueil
                 window.location.href = "./index.html";
-            } else {
-                throw new Error("Erreur d’identifiant ou de mot de passe");
+            } else {      
+                alert("Identifiant non existant"); 
+                window.location.href = "./login.html";         
+                return;              
+                
             }
         })
         .catch((error) => {

@@ -557,7 +557,7 @@ span {
   display: none;
   justify-content: center;
   align-items: center;  
-  width: 100%;
+  width: auto;
   height: 169px;
   margin-top: 10px;
   margin-bottom: 10px;

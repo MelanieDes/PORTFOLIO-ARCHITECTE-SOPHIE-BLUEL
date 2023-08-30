@@ -10,12 +10,12 @@ const thumbnail = document.querySelector(".display-thumbnail");
 thumbnail.addEventListener("click", (event) => {
   event.preventDefault();
 
-  // Assiganation de l'Id du projet aux bouton de suppression
+  // Assignation de l'Id du projet aux bouton de suppression
   if (event.target.closest(".btn-delete")) {
     const emplacementClick = event.target.closest(".btn-delete");
     const idBtnDelete = emplacementClick.id;
+    
     //declaration de la fonction suppression
-
     deleteWorks(idBtnDelete);
     displayThumbnail();
     displayWorks();
