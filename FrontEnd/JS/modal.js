@@ -34,7 +34,7 @@ const closeModal = function (event) {
 
 const openModal2 = async function (event) {
   event.preventDefault();
-  const target2 = event.target.getAttribute("href");
+  const target2 = event.target.getAttribute("formaction");
   if(target2.startsWith("#")) {
     modal2 = document.querySelector(target2)
   } else {
@@ -76,7 +76,9 @@ const loadModal = async function (url) {
   const element = document.createRange().createContextualFragment(html).querySelector(target);
   if(element === null) throw `L'élément ${target} n'a pas été trouvé dans la page ${url}`
   document.body.append(element);
+  previewPictrure()
   thumbnailCategory()
+  validateButton()
   return element 
 }
 
@@ -155,7 +157,7 @@ function displayThumbnail() {
     }    
   })
   .catch((error) => {
-    console.log(`Erreur :` + error);
+    alert(`Erreur :` + error);
   });  
 }
 displayThumbnail()
@@ -184,86 +186,84 @@ function thumbnailCategory() {
           }
         })
         .catch((error) => {
-          console.log(`Erreur :` + error);
+          alert(`Erreur :` + error);
         });
 }
 
 // Prévisualisation de l'image selectionné
-function previewPictrure(event) {
+function previewPictrure() {  
+  const inputPreview = document.getElementById("image");
+  inputPreview.addEventListener('change', (event) => {
+    event.preventDefault();
     if(event.target.files.length >= 0) {
-        const src = URL.createObjectURL(event.target.files[0]);
-        const preview = document.querySelector("#file-ip-1-preview");
-        const iconImg = document.getElementById("icon-img");
-        preview.src = src;
-        preview.style.display = "block";
-        iconImg.style.display = "none";
+    const src = URL.createObjectURL(event.target.files[0]);
+    const preview = document.querySelector("#file-ip-1-preview");
+    const iconImg = document.getElementById("icon-img");
+    preview.src = src;
+    preview.style.display = "block";
+    iconImg.style.display = "none";
     }
+  })    
 }
 
 // Evenement de validation du formulaire
-// function validateButton() {
-//     const validateBtn = document.getElementById("validate-modal2");
-//     validateBtn.addEventListener("click", (event) => {
-//         event.preventDefault();
-//         // registerAddWorkEventListener();
-//       });
-// }
+function validateButton() {
+    const validateBtn = document.getElementById("validate-modal2");
+    validateBtn.addEventListener("click", (event) => {
+        event.preventDefault();
+        registerAddWorkEventListener();
+      });
+}
 
 
 
-// function registerAddWorkEventListener() {
-//   const addWorksForm = document.querySelector(".add-form");
-//   addWorksForm.addEventListener('submit', (event) => {
-//     event.preventDefault();
-//   //Capture de l'élément seléctionné
-//   const fileInput = document.getElementById("image");
-//   // Valeure du champs titre
-//   const title = document.querySelector("input[name='title']");
-//   // valeur du champs catégorie
-//   const category = document.querySelector("select[name='category']");
-//     console.log(fileInput.files[0]);
-//     console.log(category.value);
-//     console.log(title.value);
-//   // Condition de validation gestion des erreurs
-//   if (fileInput == undefined) {
-//     alert("Veuillez choisir une image");
-//     return;
-//   }
-//   if (title == "") {
-//     alert("Veuillez définir un titre");
-//     return;
-//   }
-//   if (category == "fields-selected") {
-//     alert("Veuillez selectionner une catégorie");
-//     return;
-//   }
+function registerAddWorkEventListener() {
+  //Capture de l'élément seléctionné
+  const fileInput = document.getElementById("image");
+  // Valeure du champs titre
+  const title = document.querySelector("input[name='title']");
+  // valeur du champs catégorie
+  const category = document.querySelector("select[name='category']");
+    
+  // Condition de validation gestion des erreurs
+  if (fileInput.files[0] == undefined) {
+    alert("Veuillez choisir une image");
+    return;
+  }
+  if (title.value == "") {
+    alert("Veuillez définir un titre");
+    return;
+  }
+  if (category.value == "") {
+    alert("Veuillez selectionner une catégorie");
+    return;
+  }
   
-//   const formData = new FormData();
+  const formData = new FormData();
+  formData.append("title", title.value);
+  formData.append("category", category.value);
+  formData.append("image", fileInput.files[0]);
 
-//   formData.append("title", title.value);
-//   formData.append("category", category.value);
-//   formData.append("image", fileInput.files[0]);
+  const token = localStorage.getItem("token");
 
-//   const token = localStorage.getItem("token");
-
-//    fetch(`http://localhost:5678/api/works`, {
-//         method: "POST",
-// 		    headers: {
-//           Authorization: `Bearer ${token}`,
-//           Accept: "application/json",          
-//         }, 
-//         body: formData,       
-//       })
-// 	  .then((response) => {
-// 		      if (response.ok) {
-// 		        console.log("Téléchargement réussi");
-// 		        return response.json();               
-// 		      } else {
-// 		        alert("erreur lors du transfert");		        
-// 		      }			  
-// 		    })
-//   })
-// }       
+   fetch(`http://localhost:5678/api/works`, {
+        method: "POST",
+		    headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",          
+        }, 
+        body: formData,       
+      })
+	  .then((response) => {
+		      if (response.ok) {
+		        alert("Téléchargement réussi");
+		        return response.json();               
+		      } else {
+		        alert("erreur lors du transfert");		        
+		      }			  
+		    })
+  
+}       
 
 
 

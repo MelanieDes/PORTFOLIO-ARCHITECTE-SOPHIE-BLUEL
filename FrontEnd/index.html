@@ -28,64 +28,25 @@
 			</div>
 		</header>
 		<main>
-			
-			<!-- <div class="modals"> -->
-				<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="title-modal1" style="display: none;">
-					<div class="container-modal js-modal-stop" id="container-modal1">
-						<div class="modal-close">
-							<button type="submit" class="js-btn-close" id="close-modal1">
-								<i class="fa-solid fa-xmark"></i>
-							</button>
-						</div>
-						<h2 id="title-modal1">Galerie photo</h2>
-						<div id="display-thumbnail" class="display-thumbnail">
-							<!-- affichage des travaux en miniatures via javascript -->
-						</div>
-						<div class="add-delete-picture">
-							<!-- Ouverture de la deuxième modale -->
-							<button type="submit" class="btn-validate" href="modal.html#modal2" id="validate-modal">Ajouter une photo</button>
-							<a id="delete-picture">Supprimer la galerie</a>
-						</div>
+			<aside id="modal1" class="modal" aria-hidden="true" aria-labelledby="title-modal1" style="display: none;">
+				<div class="container-modal js-modal-stop" id="container-modal1">
+					<div class="modal-close">
+						<button type="submit" class="js-btn-close" id="close-modal1">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
 					</div>
-				</aside>
-				<aside id="modal2" class="modal" role="dialog" aria-labelledby="title-modal2" style="display: none;">
-					<div class="container-modal js-modal-stop" id="container-modal2">
-						<div class="modal-close">
-							<button type="submit" class="btn-return-arrow" id="return-modal2">
-								<i class="fa-solid fa-arrow-left"></i>
-							</button>
-							<button type="submit" class="js-btn-close-2" id="close-modal2">
-								<i class="fa-solid fa-xmark"></i>
-							</button>
-						</div>
-						<h2 id="title-modal2">Ajout photo</h2>
-						<form id="add-form" method="post" enctype="multipart/form-data">
-													
-							<div id="add-picture">
-								<img id="file-ip-1-preview" src="" alt="">
-																
-								<i id="icon-img" class="fa-regular fa-image"></i>
-								<label for="image" id="btn-add-picture">+ Ajouter photo</label>
-								<input type="file" name="image" id="image" onchange="previewPictrure(event)" accept="image/jpg image/png" required><br>
-								<p id="size-max-picture">jpg, png : 4mo max</p>
-							</div>
-							<div class="title-picture">
-								<label for="title" class="label-form">Titre</label>
-								<input id="title" name="title" class="fields-form" required><br>
-							</div>
-							<div class="categories-picture">
-								<label for="category" id="choose-category" class="label-form">Catégories</label>
-								<select name="category" id="list-category" class="fields-form" type="text" required>
-									<option value="fields-selected"></option>
-									<!-- Affichage des catégories via l'API -->
-								</select>
-							</div>
-							<button type="submit" class="btn-validate" href="#" id="validate-modal2">Valider</button>				
-						</form>
+					<h2 id="title-modal1">Galerie photo</h2>
+					<div id="display-thumbnail" class="display-thumbnail">
+						<!-- affichage des travaux en miniatures via javascript -->
 					</div>
-				</aside>				
-				<!-- </div> -->
-			<section id="introduction">
+					<div class="add-delete-picture">
+						<!-- Ouverture de la deuxième modale -->
+						<button type="submit" class="btn-validate" formaction="modal.html#modal2" id="validate-modal">Ajouter une photo</button>
+						<a id="delete-picture">Supprimer la galerie</a>
+					</div>
+				</div>
+			</aside>
+			<div id="introduction">
 				<figure>
 					<img src="./assets/images/sophie-bluel.png" alt="">
 					<a id="modifier-introduction" class="btn-recast" style="display: none;"><i class="fa-regular fa-pen-to-square"></i>Modifier</a>
@@ -96,8 +57,8 @@
 					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 					<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 				</article>
-			</section>
-			<section id="portfolio">
+			</div>
+			<div id="portfolio">
 				<div class="container-modifier-projets">
 					<h2>Mes Projets</h2>
 					<!-- Ouverture de la première modale -->
@@ -108,7 +69,7 @@
 				</div>
 				<div class="gallery">						
 				</div>
-			</section>
+			</div>
 			<section id="contact">
 				<h2>Contact</h2>
 				<p>Vous avez un projet ? Discutons-en !</p>

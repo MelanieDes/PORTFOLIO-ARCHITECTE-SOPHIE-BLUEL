@@ -24,7 +24,7 @@ const errorDisplay = (tag, message, valid) => {
 const emailChecker = (value) => {
     // Regex pour email
     email = value;
-    if(!value.match(/^[\w_-]+@[\w-]+\.[a-z]{2,4}$/i)) {
+    if(!value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)) {
         errorDisplay("email", "Le mail n'est pas valide");
         email = null;
     } else {
@@ -110,7 +110,7 @@ form.addEventListener("submit", (event) => {
             }
         })
         .catch((error) => {
-          console.log(`Erreur :` + error);
+            alert(`Erreur :` + error);
         });       
        
     } else {

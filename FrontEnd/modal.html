@@ -15,7 +15,7 @@
 	<body>
 		<main>
 			
-				<aside id="modal2" class="modal" role="dialog" aria-labelledby="title-modal2">
+				<aside id="modal2" class="modal" aria-labelledby="title-modal2">
 					<div class="container-modal js-modal-stop" id="container-modal2">
 						<div class="modal-close">
 							<button type="submit" class="btn-return-arrow" id="return-modal2">
@@ -29,11 +29,11 @@
 						<form id="add-form" method="post" enctype="multipart/form-data">
 													
 							<div id="add-picture">
-								<img id="file-ip-1-preview" src="" alt="">
+								<img id="file-ip-1-preview" src="#" alt="">
 																
 								<i id="icon-img" class="fa-regular fa-image"></i>
 								<label for="image" id="btn-add-picture">+ Ajouter photo</label>
-								<input type="file" name="image" id="image" onchange="previewPictrure(event)" accept="image/jpg image/png" required><br>
+								<input type="file" name="image" id="image" accept="image/jpg, image/png" required><br>
 								<p id="size-max-picture">jpg, png : 4mo max</p>
 							</div>
 							<div class="title-picture">
@@ -41,13 +41,13 @@
 								<input id="title" name="title" class="fields-form" required><br>
 							</div>
 							<div class="categories-picture">
-								<label for="category" id="choose-category" class="label-form">Catégories</label>
-								<select name="category" id="list-category" class="fields-form" type="text" required>
-									<option value="fields-selected"></option>
+								<label for="list-category" id="choose-category" class="label-form">Catégories</label>
+								<select name="category" id="list-category" class="fields-form" required>
+									<option value="">Veuillez sélectionner la catégorie</option>
 									<!-- Affichage des catégories via l'API -->
 								</select>
 							</div>
-							<button type="submit" class="btn-validate" href="#index.html" id="validate-modal2">Valider</button>				
+							<button type="submit" class="btn-validate" formaction="#index.html" id="validate-modal2">Valider</button>				
 						</form>
 					</div>
 				</aside>

@@ -6,7 +6,7 @@ fetch("http://localhost:5678/api/works")
   .then((response) => response.json())
   .then((works) => displayWorks(works))
   .catch((error) => {
-    console.log(`Erreur :` + error);
+    alert(`Erreur :` + error);
 });
 
 function displayWorks(works) {
@@ -41,7 +41,7 @@ fetch("http://localhost:5678/api/categories")
   .then((response) => response.json())
   .then((categories) => displayCategory(categories))
   .catch((error) => {
-    console.log(`Erreur :` + error);
+    alert(`Erreur :` + error);
   });
 
 function displayCategory(categories) {
@@ -67,7 +67,7 @@ function displayCategory(categories) {
     .then((response) => response.json())
     .then((works) => displayWorks(works))
     .catch((error) => {
-      console.log(`Erreur :` + error);
+      alert(`Erreur :` + error);
     });
     setActiveButton(buttonAll);
   });
@@ -118,9 +118,8 @@ function selectCategory(categoryId) {
       displayWorks(selectWorks);      
     })
     .catch((error) => {
-      console.log(`Erreur :` + error);
-    });
-  // console.log(event.target.dataset.blob); --> Début de recherche avec Robin
+      alert(`Erreur :` + error);
+    });  
 }
 
 // ------------------------------------------------------
@@ -195,9 +194,9 @@ function userDisconnected() {
 
 function disconnected() {
   // suppression des data dans le localStorage
-  const closingLogout = localStorage.clear();
-    // rechargement de la page
-    location.reload();
+  localStorage.clear();
+  // rechargement de la page
+  location.reload();
 }
 userDisconnected();
 

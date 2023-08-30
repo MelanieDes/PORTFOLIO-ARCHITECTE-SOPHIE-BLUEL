@@ -190,6 +190,7 @@ li a:hover {
 #introduction {
   display: flex;
   align-items: center;
+  margin: 50px 0;
 }
 #introduction figure {
   flex: 1;
@@ -207,6 +208,9 @@ li a:hover {
 }
 #introduction p {
   margin-bottom: 0.5em;
+}
+#portfolio {
+  margin: 50px 0;
 }
 #portfolio h2 {
   text-align: center;
@@ -380,6 +384,7 @@ span {
   margin: 10px 0 0 60px;
 }
 #modifier-projets {
+  cursor: pointer;
   margin-left: 30px;
   margin-bottom: 30px;
 }
@@ -442,8 +447,7 @@ span {
 /********** Modale 1 **********/
 .display-thumbnail {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: justify;
+  flex-wrap: wrap;  
   align-items: center;
   width: 430px;
   gap: 10px;
@@ -648,5 +652,5 @@ span {
   border-radius: 60px;
 }
 .categories-picture {
-  border-bottom: solid 1 px black;
+  border-bottom: solid 1px black;
 }
