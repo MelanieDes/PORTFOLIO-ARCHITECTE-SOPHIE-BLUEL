@@ -79,8 +79,7 @@ function displayCategory(categories) {
     const categoryElement = document.createElement("button");
     categoryElement.classList.add("btnFilter");
     categoryElement.innerHTML = categoryIndex.name;
-    // categoryElement.id = categoryIndex.id; --> Début de recherche avec Robin
-    // categoryElement.dataset.blob = index + "-btn"; --> Début de recherche avec Robin
+   
 
     // Lien entre la balise input et la section filtre
     sectionFiltres.appendChild(categoryElement);
@@ -94,6 +93,7 @@ function displayCategory(categories) {
   }
 }
 
+// Fonction qui permet de sélectionner le bouton sur lequel on clique
 function setActiveButton(button) {
   const buttons = document.querySelectorAll(".btnFilter");
   buttons.forEach((btn) => {

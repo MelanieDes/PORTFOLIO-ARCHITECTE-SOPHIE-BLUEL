@@ -81,7 +81,7 @@ const loadModal = async function (url) {
   validateButton()
   return element 
 }
-
+//  Ouverture de la modale 1
 document.querySelectorAll(".btn-recast").forEach((a) => {
   a.addEventListener("click", openModal);
 });
