@@ -26,7 +26,7 @@
 							</button>
 						</div>
 						<h2 id="title-modal2">Ajout photo</h2>
-						<form id="add-form" method="post" enctype="multipart/form-data">
+						<form id="add-form">
 													
 							<div id="add-picture">
 								<img id="file-ip-1-preview" src="#" alt="">
@@ -47,13 +47,17 @@
 									<!-- Affichage des catégories via l'API -->
 								</select>
 							</div>
-							<button type="submit" class="btn-validate" formaction="#index.html" id="validate-modal2">Valider</button>				
+							<div class="btn-validate2">
+								<button type="submit" formaction="index.html#modal1" id="validate-modal2">Valider</button>
+							</div>
+											
 						</form>
 					</div>
 				</aside>
 			</main>
 		<script src="./JS/script.js"></script>
 		<script src="./JS/modal.js"></script>
+		<script src="./JS/delete.js"></script>
 	</body>
 </html>
 

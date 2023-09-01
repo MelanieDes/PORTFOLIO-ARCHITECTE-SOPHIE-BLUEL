@@ -18,7 +18,6 @@ thumbnail.addEventListener("click", (event) => {
     //declaration de la fonction suppression
     deleteWorks(idBtnDelete);
     displayThumbnail();
-    displayWorks();
   }
 });
 
@@ -29,13 +28,13 @@ function deleteWorks(id) {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
-          Accept: "application/json",
-          "Content-Type": "application/json"
+          // Accept: "application/json",
+          // "Content-Type": "application/json"
         },
       })
-        .then((reponse) => {
-          if (reponse.status == 204) {
-            console.log("Suppression du Projet");
+        .then((response) => {
+          if (response.status == 204) {
+            alert("Suppression du Projet");
           } else {
             alert("Erreur dans la suppression du projet");
           }

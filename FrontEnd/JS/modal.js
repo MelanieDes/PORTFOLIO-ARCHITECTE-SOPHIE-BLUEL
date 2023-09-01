@@ -30,6 +30,7 @@ const closeModal = function (event) {
   modal.querySelector(".js-btn-close").removeEventListener("click", closeModal);
   modal.querySelector(".js-modal-stop").removeEventListener("click", stopPropagation);
   modal = null;
+  location.reload(); 
 };
 
 const openModal2 = async function (event) {
@@ -49,9 +50,8 @@ const openModal2 = async function (event) {
   modal2.querySelector(".js-modal-stop").addEventListener("click", stopPropagation);
 };
 
-const closeModal2 = function (event) {
+const closeModal2 = function () {
   if (modal2 === null) return;
-  event.preventDefault();
   modal2.style.display = "none";
   modal2.setAttribute("aria-hidden", "true");
   modal2.removeAttribute("aria-modal");
@@ -87,12 +87,20 @@ document.querySelectorAll(".btn-recast").forEach((a) => {
 });
 
 // Fermeture Modale 1
-const buttonModal1 = document.querySelector(".js-btn-close");
-buttonModal1.addEventListener('click', closeModal);
+function btnCloseModal() {
+  const buttonModal1 = document.querySelector(".js-btn-close");
+  buttonModal1.addEventListener('click', () => {
+    closeModal(); 
+  });
+}
 
 // Fermeture Modale 2
-const buttonModal = document.querySelector(".js-btn-close-2");
-buttonModal1.addEventListener('click', closeModal);
+function btnCloseModal2() {
+  const buttonModal2 = document.querySelector(".js-btn-close-2");
+  buttonModal2.addEventListener('click', () => {
+    closeModal2();
+  });
+}
 
 // Retour Modale 2 à Modale 1
 function returnArrowModal() {
@@ -100,9 +108,8 @@ function returnArrowModal() {
 	returnArrow.addEventListener('click', (event) => {
 		event.preventDefault();
 		closeModal2();
-})
+  })
 }
-
 
 // Affichage des travaux miniatures dans la modale
 function displayThumbnail() {
@@ -196,35 +203,50 @@ function previewPictrure() {
   inputPreview.addEventListener('change', (event) => {
     event.preventDefault();
     if(event.target.files.length >= 0) {
-    const src = URL.createObjectURL(event.target.files[0]);
-    const preview = document.querySelector("#file-ip-1-preview");
-    const iconImg = document.getElementById("icon-img");
-    preview.src = src;
-    preview.style.display = "block";
-    iconImg.style.display = "none";
+      const src = URL.createObjectURL(event.target.files[0]);
+      const preview = document.querySelector("#file-ip-1-preview");
+      const iconImg = document.getElementById("icon-img");
+      preview.src = src;
+      preview.style.display = "block";
+      iconImg.style.display = "none";
     }
   })    
 }
+
+
 
 // Evenement de validation du formulaire
 function validateButton() {
     const validateBtn = document.getElementById("validate-modal2");
     validateBtn.addEventListener("click", (event) => {
         event.preventDefault();
+        stopPropagation(event);
         registerAddWorkEventListener();
       });
 }
 
+function colorBtnValidate() {
+  const colorBtnValidate = document.getElementById("validate-modal2");
+  const fileInput = document.getElementById("image");
+  const title = document.querySelector("input[name='title']");
+  const category = document.querySelector("select[name='category']");
+  if(fileInput.files[0] !== undefined && title.value.trim() !== "" && category.value !== "") {
+    console.log("valider");
+    colorBtnValidate.classList.add(".btn-validate");
+  } else {
+    colorBtnValidate.classList.remove(".btn-validate");
+  }
+}
 
 
 function registerAddWorkEventListener() {
   //Capture de l'élément seléctionné
   const fileInput = document.getElementById("image");
-  // Valeure du champs titre
+  // Valeur du champs titre
   const title = document.querySelector("input[name='title']");
   // valeur du champs catégorie
   const category = document.querySelector("select[name='category']");
-    
+
   // Condition de validation gestion des erreurs
   if (fileInput.files[0] == undefined) {
     alert("Veuillez choisir une image");
@@ -238,13 +260,15 @@ function registerAddWorkEventListener() {
     alert("Veuillez selectionner une catégorie");
     return;
   }
-  
+
   const formData = new FormData();
   formData.append("title", title.value);
   formData.append("category", category.value);
   formData.append("image", fileInput.files[0]);
 
   const token = localStorage.getItem("token");
+  const preview = document.querySelector("#file-ip-1-preview");
+  const iconImg = document.getElementById("icon-img");
 
    fetch(`http://localhost:5678/api/works`, {
         method: "POST",
@@ -255,14 +279,17 @@ function registerAddWorkEventListener() {
         body: formData,       
       })
 	  .then((response) => {
-		      if (response.ok) {
-		        alert("Téléchargement réussi");
-		        return response.json();               
+		      if (response.ok) {            
+            document.getElementById("add-form").reset();
+            closeModal2();
+            preview.remove();
+            iconImg.style.display = "block";
+            displayThumbnail();
+            return response.json();                           
 		      } else {
 		        alert("erreur lors du transfert");		        
 		      }			  
-		    })
-  
+		    })  
 }       
 
 

@@ -294,7 +294,6 @@ input[type="submit"],
   color: white;
   background-color: #1d6154;
   margin: 2em auto;
-  width: 180px;
   text-align: center;
   border-radius: 60px;
 }
@@ -613,13 +612,20 @@ span {
   width: 440px;
   padding: 0;
 }
+.btn-validate2 {
+  display: grid;
+  justify-content: center;
+}
 #validate-modal2 {
-  display: flex;
-  justify-self: center;
-  align-self: center;
   background-color: #a7a7a7;
   height: 36px;
   width: 237px;
+  text-align: center;
+  border-radius: 60px;
+  font-family: "Syne";
+  font-weight: 700;
+  color: white;
+  margin: 2em auto;  
 }
 
 /********** Barre de modification **********/
