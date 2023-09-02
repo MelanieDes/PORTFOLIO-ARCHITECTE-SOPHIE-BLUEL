@@ -221,11 +221,15 @@ function colorBtnValidate() {
   const category = document.getElementById("list-category");
   validateContentForm.forEach((control) =>
     control.addEventListener("change", function () { 
-       if (title.value !== "" && category.value !== "") {
-        buttonValidatePhoto.style.background = "#1D6154";
-        buttonValidatePhoto.style.cursor = "pointer";
-        buttonValidatePhoto.disabled = false;
+        if (title.value !== "" && category.value !== "") {
+          buttonValidatePhoto.style.background = "#1D6154";
+          buttonValidatePhoto.style.cursor = "pointer";
+          buttonValidatePhoto.disabled = false;
       }
+      if (title.value == "") {
+        buttonValidatePhoto.style.background = "#a7a7a7";
+        buttonValidatePhoto.disabled = false;
+    }
     })
   );
 }
