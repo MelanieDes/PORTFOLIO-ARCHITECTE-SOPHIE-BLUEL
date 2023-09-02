@@ -78,6 +78,7 @@ const loadModal = async function (url) {
   document.body.append(element);
   previewPictrure()
   thumbnailCategory()
+  colorBtnValidate()
   validateButton()
   return element 
 }
@@ -213,7 +214,21 @@ function previewPictrure() {
   })    
 }
 
-
+function colorBtnValidate() {
+  const validateContentForm = document.querySelectorAll(".fields-form");
+  const buttonValidatePhoto = document.getElementById("validate-modal2");
+  const title = document.getElementById("title");
+  const category = document.getElementById("list-category");
+  validateContentForm.forEach((control) =>
+    control.addEventListener("change", function () { 
+       if (title.value !== "" && category.value !== "") {
+        buttonValidatePhoto.style.background = "#1D6154";
+        buttonValidatePhoto.style.cursor = "pointer";
+        buttonValidatePhoto.disabled = false;
+      }
+    })
+  );
+}
 
 // Evenement de validation du formulaire
 function validateButton() {
@@ -222,22 +237,9 @@ function validateButton() {
         event.preventDefault();
         stopPropagation(event);
         registerAddWorkEventListener();
+        validateBtn.style.background = "#a7a7a7";
       });
 }
-
-function colorBtnValidate() {
-  const colorBtnValidate = document.getElementById("validate-modal2");
-  const fileInput = document.getElementById("image");
-  const title = document.querySelector("input[name='title']");
-  const category = document.querySelector("select[name='category']");
-  if(fileInput.files[0] !== undefined && title.value.trim() !== "" && category.value !== "") {
-    console.log("valider");
-    colorBtnValidate.classList.add(".btn-validate");
-  } else {
-    colorBtnValidate.classList.remove(".btn-validate");
-  }
-}
-
 
 function registerAddWorkEventListener() {
   //Capture de l'élément seléctionné
